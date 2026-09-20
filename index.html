@@ -2,28 +2,26 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hệ Thống Trắc Nghiệm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Hệ Thống Thi Trực Tuyến</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #eef2f5; }
-        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* Ép Iframe tràn viền 100% màn hình, trông như một app gốc */
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #f8f9fa; }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
     </style>
 </head>
 <body>
-    <iframe id="appFrame" allowfullscreen></iframe>
+    <iframe id="app-frame" allowfullscreen></iframe>
 
     <script>
-        // Thay bằng link /exec của bạn (không chứa ?page=...)
-        const scriptUrl = "https://script.google.com/macros/s/AKfycbzs2OTo-Kbd4GknaulgD9Iu3o06YG8VVVoEWD5Drz-YyLzUUFkgoGsTIvXGjP38BHeX3w/exec";
-        
-        // Đọc tham số phía sau dấu ? trên trình duyệt
-        const urlParams = new URLSearchParams(window.location.search);
-        const pageParam = urlParams.get('page');
-        
-        // Nếu có tham số page, ghép vào link iframe. Nếu không, tải trang học sinh mặc định.
-        const finalUrl = pageParam ? `${scriptUrl}?page=${pageParam}` : scriptUrl;
-        
-        document.getElementById('appFrame').src = finalUrl;
+        // 1. DÁN LINK GAS CỦA MÀY VÀO ĐÂY (Link đuôi /exec)
+        const gasAppUrl = "https://script.google.com/macros/s/AKfycbyaIWpjabuiJH6g801MKp3iOsztNAzogD29EA-BM6F2H_F4jhicpyObXBXq9viTBi39dg/exec";
+
+        // 2. Bắt các tham số từ thanh địa chỉ GitHub (ví dụ: ?e=VL001&s=HS001)
+        const currentParams = window.location.search;
+
+        // 3. Đẩy tham số vào Iframe để kích hoạt luồng học sinh
+        document.getElementById("app-frame").src = gasAppUrl + currentParams;
     </script>
 </body>
 </html>
